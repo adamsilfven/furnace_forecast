@@ -42,7 +42,6 @@ public final class ClientTooltip {
         } else {
             RecipeType<? extends AbstractCookingRecipe> recipeType = menu instanceof BlastFurnaceMenu
                     ? RecipeType.BLASTING : menu instanceof SmokerMenu ? RecipeType.SMOKING : RecipeType.SMELTING;
-
             int recipeTime = minecraft.level.getRecipeManager()
                     .getRecipeFor(recipeType, new SingleRecipeInput(input), minecraft.level)
                     .map(held -> held.value().getCookingTime()).orElse(0);
