@@ -1,0 +1,24 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="MIT"
+[[mods]]
+modId="furnace_forecast"
+version="0.1.0"
+displayName="Furnace Forecast"
+authors="Adam Silfven"
+displayTest="IGNORE_ALL_VERSION"
+description="A vanilla-style furnace fuel forecast, client-side only."
+
+[[dependencies.furnace_forecast]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.20.1,1.20.2)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.furnace_forecast]]
+modId="forge"
+mandatory=true
+versionRange="[47.2,48)"
+ordering="NONE"
+side="BOTH"

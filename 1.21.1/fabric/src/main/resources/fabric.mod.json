@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "furnace_forecast",
+  "version": "0.1.0",
+  "name": "Furnace Forecast",
+  "description": "Vanilla-style fuel and time forecast when hovering over a furnace, smoker or blast furnace flame.",
+  "authors": [
+    "Adam Silfven"
+  ],
+  "license": "MIT",
+  "environment": "client",
+  "mixins": [
+    "furnace_forecast.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.17.3",
+    "minecraft": "1.21.1",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}

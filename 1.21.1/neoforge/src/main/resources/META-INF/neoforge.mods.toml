@@ -1,0 +1,20 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="MIT"
+[[mods]]
+modId="furnace_forecast"
+version="0.1.0"
+displayName="Furnace Forecast"
+authors="Adam Silfven"
+displayTest="IGNORE_ALL_VERSION"
+description="A simple vanilla-style fuel forecast when hovering over the flame in a furnace, smoker, or blast furnace. Client-side only."
+[[dependencies.furnace_forecast]]
+modId="minecraft"
+type="required"
+versionRange="[1.21.1,1.21.2)"
+side="BOTH"
+[[dependencies.furnace_forecast]]
+modId="neoforge"
+type="required"
+versionRange="[21.1.259,21.2)"
+side="BOTH"

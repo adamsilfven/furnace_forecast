@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "com.adamsilfven.furnaceforecast.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "FurnaceScreenMixin",
+    "FurnaceMenuAccessor",
+    "FurnaceScreenPositionAccessor"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
