@@ -1,0 +1,35 @@
+plugins {
+    id 'java'
+    id 'net.minecraftforge.gradle' version '6.0.44'
+}
+
+group = 'com.adamsilfven.furnaceforecast'
+version = '0.1.0'
+base { archivesName = 'furnace-forecast-forge-1.20.1' }
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+minecraft {
+    mappings channel: 'official', version: '1.20.1'
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+    runs {
+        client {
+            workingDirectory project.file('run')
+            mods { furnace_forecast { source sourceSets.main } }
+        }
+        server {
+            workingDirectory project.file('run')
+            args '--nogui'
+            mods { furnace_forecast { source sourceSets.main } }
+        }
+    }
+}
+repositories { mavenCentral() }
+dependencies { minecraft 'net.minecraftforge:forge:1.20.1-47.4.28' }
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = 17
+}
+tasks.withType(AbstractArchiveTask).configureEach {
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
+}

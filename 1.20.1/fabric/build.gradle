@@ -1,0 +1,26 @@
+plugins {
+    // Same known-working Loom toolchain as the 1.21.1 Fabric port.
+    id 'fabric-loom' version '1.11.8'
+}
+
+group = 'com.adamsilfven.furnaceforecast'
+version = '0.1.0'
+base { archivesName = 'furnace-forecast-fabric-1.20.1' }
+
+// Gradle executes on Java 21, but emits Java 17 bytecode for Minecraft 1.20.1.
+java { toolchain.languageVersion = JavaLanguageVersion.of(21) }
+repositories { mavenCentral() }
+dependencies {
+    minecraft 'com.mojang:minecraft:1.20.1'
+    mappings loom.officialMojangMappings()
+    modImplementation 'net.fabricmc:fabric-loader:0.16.14'
+    modImplementation 'net.fabricmc.fabric-api:fabric-api:0.92.6+1.20.1'
+}
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = 17
+}
+tasks.withType(AbstractArchiveTask).configureEach {
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
+}

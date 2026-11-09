@@ -1,0 +1,11 @@
+.gradle/
+build/
+run/
+out/
+.idea/
+.vscode/
+*.iml
+*.log
+READY-TO-INSTALL/
+forge-diagnostic.txt
+.DS_Store
