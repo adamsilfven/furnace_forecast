@@ -37,12 +37,12 @@ For installation, use **only the JAR built for your exact Minecraft version and 
 
 ## Build
 
-Use the Gradle wrapper inside the relevant project folder: `./gradlew build` on Linux/macOS or `.\gradlew.bat build` on Windows. Do not install `*-sources.jar` output.
+Each version/loader folder is an independent Gradle project. Use a **locally installed Gradle** matching the version in `docs/BUILDING.md`, then run `gradle clean build` from the project directory. GitHub's manually triggered `Build Furnace Forecast` workflow can also build and archive the JARs. The original offline-built source ZIPs contained Gradle wrapper launchers, but the repository does **not** yet include the binary Gradle wrapper launcher; do not expect `gradlew.bat` to work from a fresh clone. Never install a `*-sources.jar`.
 
 - **Minecraft 1.20.1**: mod bytecode targets Java **17**. The source projects may use Java 21 to run Gradle; ForgeGradle's Minecraft setup also needs a **JDK 17 toolchain** available.
 - **Minecraft 1.21.1**: Java **21**.
 - Gradle and mod-loader dependencies vary by project; keep the versions specified in each project's build files.
-- The projects were built and validated locally by the maintainer; there is not yet a full GitHub-hosted CI verification for every target.
+- The maintainer has built each target locally. GitHub Actions builds are **not yet verified**; the workflow is manually triggered and does not prove gameplay compatibility.
 
 ## Scope and limitations
 

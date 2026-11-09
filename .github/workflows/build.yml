@@ -1,0 +1,70 @@
+name: Build Furnace Forecast
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - project: 1.20.1/fabric
+            gradle: '8.14.3'
+            artifact: fabric-1.20.1
+          - project: 1.20.1/forge
+            gradle: '8.12.1'
+            artifact: forge-1.20.1
+          - project: 1.21.1/fabric
+            gradle: '8.14.3'
+            artifact: fabric-1.21.1
+          - project: 1.21.1/forge
+            gradle: '8.12.1'
+            artifact: forge-1.21.1
+          - project: 1.21.1/neoforge
+            gradle: '8.14.3'
+            artifact: neoforge-1.21.1
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+      - name: Install JDK 17 for Minecraft 1.20.1 tools
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Select JDK 21 for Gradle
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Install Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: ${{ matrix.gradle }}
+      - name: Compile and package
+        working-directory: ${{ matrix.project }}
+        run: gradle --no-daemon clean build
+      - name: Verify JAR exists
+        working-directory: ${{ matrix.project }}
+        shell: bash
+        run: |
+          shopt -s nullglob
+          jars=(build/libs/*.jar)
+          playable=()
+          for jar in "${jars[@]}"; do
+            [[ "$jar" == *-sources.jar ]] || playable+=("$jar")
+          done
+          if (( ${#playable[@]} != 1 )); then
+            echo "Expected exactly one playable JAR, got ${#playable[@]}"
+            exit 1
+          fi
+          jar tf "${playable[0]}" | grep -q 'com/adamsilfven/furnaceforecast/ForecastMath.class'
+      - name: Archive built JARs
+        uses: actions/upload-artifact@v4
+        with:
+          name: furnace-forecast-${{ matrix.artifact }}
+          path: |
+            ${{ matrix.project }}/build/libs/*.jar
+            !${{ matrix.project }}/build/libs/*-sources.jar
+          if-no-files-found: error

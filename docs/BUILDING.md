@@ -10,9 +10,11 @@ Choose the corresponding loader/version directory, then build it as an independe
 | 1.21.1/forge | ForgeGradle 6.0.44 | 8.12.1 | JDK 21 |
 | 1.21.1/neoforge | NeoForge ModDevGradle 2.0.148 | 8.14.3 | JDK 21 |
 
-For Windows, inside the chosen directory run `.\gradlew.bat clean build`; for Fabric ensure `.\gradlew.bat remapJar` has completed. On Linux/macOS run `./gradlew build`. Only install the ordinary project JAR from `build/libs`. Never install a `-sources.jar`.
+From the project directory, use a locally installed **matching Gradle version** (8.14.3 for Fabric/NeoForge, 8.12.1 for Forge) and run `gradle clean build`. With Fabric Loom, `gradle remapJar` produces the installable jar and is normally included as a dependency of `build`. Use only the ordinary project JAR from `build/libs`, never `-sources.jar`.
 
-**Important:** Source control includes the per-project Gradle wrapper and wrapper properties. Keep wrapper versions separate. Initial builds download mod-loader/Minecraft dependencies.
+The original developer source ZIPs included binary Gradle wrapper launchers; those binaries have not been transferred into this GitHub repository. Therefore, `gradlew.bat` is **not** included in the GitHub source tree. The manually triggered GitHub Actions workflow installs the matching Gradle version itself, so it does not require a wrapper.
+
+**Important:** Source control includes each project's Gradle *wrapper properties*, but not the wrapper executable JAR or launchers. Keep build tool versions separate. Initial builds download mod-loader/Minecraft dependencies.
 
 ## Test checklist
 
